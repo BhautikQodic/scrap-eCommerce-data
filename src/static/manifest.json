@@ -3,22 +3,35 @@
   "name": "scrap-ecommerce-data",
   "description": "This chrome extension scraps product details from well-known eCommerce platforms",
   "version": "1.0.0",
-  "action" : {
-      "default_icon" : "icon.png",
-      "default_popup" : "popup.html"
+  "action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
   },
   "icons": {
-      "16" : "icon.png",
-      "48" : "icon.png",
-      "128" : "icon.png"
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
   },
   "permissions": [
-    "alarms", "scripting", "storage"
+    "alarms",
+    "scripting",
+    "storage"
   ],
   "background": {
     "service_worker": "background.bundle.js"
   },
   "host_permissions": [
     "https://www.amazon.in//*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.amazon.in/*"
+      ],
+      "js": [
+        "amazon.bundle.js"
+      ],
+      "run_at": "document_idle"
+    }
   ]
 }

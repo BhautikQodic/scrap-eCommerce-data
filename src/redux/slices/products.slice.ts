@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { EProductDetails } from "../../scripts/globalInterfaces";
 
 interface InitialState {
-    products: any[]
+    products: EProductDetails[]
 }
 
 const initialState: InitialState = {

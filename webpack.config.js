@@ -8,7 +8,9 @@ module.exports = {
     mode: "development",
     devtool: "cheap-module-source-map",
     entry: {
-        // popup: path.resolve("./src/popup/popup.tsx")
+        popup: path.resolve("./src/popup/popup.tsx"),
+        background: path.resolve("./src/background/background.ts"),
+        scrapper: path.resolve("./src/scripts/scrapper.ts")
     },
     module: {
         rules: [
@@ -40,15 +42,16 @@ module.exports = {
             ],
         }),
         new HtmlWebpackPlugin({
-            title: "Password Generator",
+            title: "scrap-ecommerce-data",
             filename: "popup.html",
             chunks: ["popup"]
         })
     ],
     resolve: {
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: [".tsx", ".ts", ".js", ".jsx"]
     },
     output: {
-        filename: '[name].js',
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, './dist'),
     }
 }

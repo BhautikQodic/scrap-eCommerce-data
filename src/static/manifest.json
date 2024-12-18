@@ -4,13 +4,21 @@
   "description": "This chrome extension scraps product details from well-known eCommerce platforms",
   "version": "1.0.0",
   "action" : {
-      "default_popup": "popup.html",
-      "default_title": "React Boilerplate",
-      "default_icon" : "icon.png"
+      "default_icon" : "icon.png",
+      "default_popup" : "popup.html"
   },
   "icons": {
       "16" : "icon.png",
       "48" : "icon.png",
       "128" : "icon.png"
-  }
+  },
+  "permissions": [
+    "alarms", "scripting", "storage"
+  ],
+  "background": {
+    "service_worker": "background.bundle.js"
+  },
+  "host_permissions": [
+    "https://www.amazon.in//*"
+  ]
 }

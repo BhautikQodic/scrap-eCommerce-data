@@ -9,9 +9,6 @@ chrome.runtime.onMessage.addListener(async (data) => {
                 let alreadyStoredData = []
                 let localData = await getLocalStoreData()
 
-                let timestamp = Date.now();
-                data.data.id = timestamp
-
                 alreadyStoredData = [...localData, data.data]
 
                 await chrome.storage.local.set({ products: alreadyStoredData })
@@ -25,8 +22,15 @@ chrome.runtime.onMessage.addListener(async (data) => {
 })
 
 chrome.storage.onChanged.addListener((changes: chrome.storage.StorageChange, areaName) => {
-    for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
-        // store.dispatch(setProducts({ payload: newValue }))
-        chrome.runtime.sendMessage({ action: "update-data", data: newValue || [] })
+    try {
+        for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+            // store.dispatch(setProducts({ payload: newValue }))
+            
+            //! QUERY: This function throws error when popup is close because 
+            // when popoup is close there is no listner for this event
+            chrome.runtime.sendMessage({ action: "update-data", data: newValue || [] })
+        }
+    } catch (error) {
+        console.log(error, "error");
     }
 })

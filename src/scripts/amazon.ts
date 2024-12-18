@@ -10,7 +10,7 @@ import { EProductDetails } from "./globalInterfaces";
 
     // 1. Product Title
     let title = document.getElementById("productTitle")?.innerText
-    productData.title = title
+    productData.title = title.trim()
 
 
     // 2. Product Review

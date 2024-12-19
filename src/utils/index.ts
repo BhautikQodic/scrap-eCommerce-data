@@ -35,33 +35,31 @@ export const getLocalStoreData = async (): Promise<[]> => {
 
 
 /**
- * Clears all the stored data from chrome's local storage
- * @async
- * @returns a promise that resolves with a boolean indicating whether the data was cleared or not
+ * Clears all data stored in chrome's local storage.
+ * @returns {Promise<boolean>} - A promise that resolves to true if the data was successfully cleared, or rejects with false if an error occurred.
  */
 export const clearLocalData = async (): Promise<boolean> => {
     try {
         await chrome.storage.local.clear();
-        return Promise.resolve(true)
+        return true;
     } catch (error) {
-        return Promise.reject(false)
+        return false;
     }
-
 }
 
 /**
- * Deletes a product from the products stored in chrome's local storage
- * @async
- * @param {EProductDetails[]} products - The array of products from which the product needs to be deleted
- * @param {number} productId - The id of the product to be deleted
- * @returns a promise that resolves with a boolean indicating whether the product was deleted or not
+ * Deletes a product from the list of products based on the provided product ID.
+ *
+ * @param {EProductDetails[]} products - The array of product details.
+ * @param {number} productId - The ID of the product to be deleted.
+ * @returns {Promise<boolean>} - A promise that resolves to true if the product was successfully deleted, or rejects with false if an error occurred.
  */
 export const deleteAProduct = async (products: EProductDetails[], productId: number): Promise<boolean> => {
     try {
-        let filteredProducts = products.filter(({ id }) => id !== productId)
-
-        await chrome.storage.local.set({ products: filteredProducts })
+        const filteredProducts = products.filter(({ id }) => id !== productId);
+        await chrome.storage.local.set({ products: filteredProducts });
+        return Promise.resolve(true);
     } catch (error) {
-        return Promise.reject(false)
+        return Promise.reject(false);
     }
 }
